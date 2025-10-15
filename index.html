@@ -41,11 +41,12 @@
     .nav-links a:hover{color:var(--ink);background:rgba(14,58,95,.18)}
     #menu-toggle{display:none}
     .menu-btn{display:none;cursor:pointer;border:1px solid rgba(255,255,255,.08);padding:8px 12px;border-radius:12px;color:var(--ink)}
+    .drawer{display:none}
     @media (max-width:900px){
       .nav-links{display:none}
       .menu-btn{display:inline-flex;align-items:center;gap:8px}
       #menu-toggle:checked ~ .drawer{max-height:420px;opacity:1}
-      .drawer{max-height:0;opacity:0;overflow:hidden;transition:max-height .5s ease, opacity .4s ease}
+      .drawer{display:block;max-height:0;opacity:0;overflow:hidden;transition:max-height .5s ease, opacity .4s ease}
       .drawer a{display:block;padding:14px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--muted);text-decoration:none}
       .drawer a:hover{background:rgba(14,58,95,.18);color:var(--ink)}
     }
@@ -111,9 +112,15 @@
           <a href="#faq">الأسئلة</a>
           <a href="الحقوق-الفكرية.html">الحقوق الفكرية</a>
         </div>
-        <label class="menu-btn" for="menu-toggle">القائمة ☰</label>
+        <label class="menu-btn" for="menu-toggle" aria-controls="mobile-drawer" aria-expanded="false">القائمة ☰</label>
         <input type="checkbox" id="menu-toggle" hidden>
-        <div class="drawer">
+        <div class="drawer" id="mobile-drawer" role="navigation" aria-label="قائمة الهاتف">
+          <a href="#about">عن الحملة</a>
+          <a href="#media">المحتوى المرئي</a>
+          <a href="#metrics">قياس الأثر</a>
+          <a href="#partners">شركاؤنا</a>
+          <a href="#faq">الأسئلة</a>
+          <a href="الحقوق-الفكرية.html">الحقوق الفكرية</a>
         </div>
       </div>
     </div>
@@ -123,7 +130,7 @@
     <div class="container">
       <div class="grid">
         <div>
-          <span class="badge">مبادرة تطوعية • طلابية</span>
+          <span class="badge">مبادرة تطوعية • مجانية 100%</span>
           <h1 class="title">حملة مدرسية لحماية الأسر والطلاب من الاحتيال المالي والاستهلاك غير الواعي</h1>
           <p class="subtitle">مواد رقمية، ورش قصيرة، وأدوات عملية — بلا أرباح ولا مدفوعات. بإشراف المدرسة وبالشراكة المجتمعية.</p>
           <div class="cta">
@@ -267,17 +274,23 @@
 
   <footer>
     <div class="container" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
-      <span>© <span id="year"></span> درع الأمان المالي — مبادرة طلابية تطوعية - ثانوية الظبية</span>
+      <span>© <span id="year"></span> درع الأمان المالي — مبادرة طلابية تطوعية</span>
       <span><a href="الحقوق-الفكرية.html">الحقوق الفكرية</a></span>
     </div>
   </footer>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <!-- داخل <head> تأكّد أن وسم العرض موجود -->
-<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- إذا وضعتها كملف خارجي -->
-<link rel="stylesheet" href="responsive.css" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script>
+  (function(){
+    var cb = document.getElementById('menu-toggle');
+    var btn = document.querySelector('label.menu-btn');
+    var drawer = document.getElementById('mobile-drawer');
+    if(cb && btn && drawer){
+      function sync(){ btn.setAttribute('aria-expanded', cb.checked ? 'true' : 'false'); }
+      cb.addEventListener('change', sync); sync();
+    }
+  })();
+</script>
 
 </body>
 </html>
