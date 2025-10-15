@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>درع الأمان المالي | حملة تطوعية مدرسية</title>
+  <meta name="description" content="حملة تطوعية مدرسية توعّي الأسر والطلاب بمخاطر الاحتيال المالي والاستهلاك غير الواعي، مع مواد مجانية وأدوات رقمية." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0A0B0D;
+      --panel:#0F1115;
+      --ink:#D9E2EC;
+      --muted:#94A3B8;
+      --brand:#0E3A5F;
+      --brand-2:#0B2340;
+      --accent:#2686FF;
+      --radius:18px;
+      --shadow: 0 20px 40px rgba(0,0,0,.35);
+      --grid: minmax(0, 1200px);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:'Cairo', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(14,58,95,.35), transparent 60%),
+                  radial-gradient(1000px 600px at -20% 20%, rgba(11,35,64,.55), transparent 60%),
+                  var(--bg);
+      color:var(--ink); line-height:1.7;
+    }
+    .container{max-width:var(--grid);margin:auto;padding:0 20px}
+    .nav{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(10,11,13,.9), rgba(10,11,13,.7));backdrop-filter: blur(10px);}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);font-weight:800}
+    .brand .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;box-shadow:var(--shadow)}
+    .brand .logo svg{width:20px;height:20px;opacity:.95}
+    .nav-links{display:flex;gap:18px}
+    .nav-links a{color:var(--muted);text-decoration:none;font-weight:600;border-radius:10px;padding:10px 12px}
+    .nav-links a:hover{color:var(--ink);background:rgba(14,58,95,.18)}
+    #menu-toggle{display:none}
+    .menu-btn{display:none;cursor:pointer;border:1px solid rgba(255,255,255,.08);padding:8px 12px;border-radius:12px;color:var(--ink)}
+    @media (max-width:900px){
+      .nav-links{display:none}
+      .menu-btn{display:inline-flex;align-items:center;gap:8px}
+      #menu-toggle:checked ~ .drawer{max-height:420px;opacity:1}
+      .drawer{max-height:0;opacity:0;overflow:hidden;transition:max-height .5s ease, opacity .4s ease}
+      .drawer a{display:block;padding:14px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--muted);text-decoration:none}
+      .drawer a:hover{background:rgba(14,58,95,.18);color:var(--ink)}
+    }
+    .hero{position:relative;padding:72px 0 36px}
+    .hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+    @media (max-width:900px){.hero .grid{grid-template-columns:1fr}}
+    .badge{display:inline-flex;align-items:center;gap:10px;padding:6px 10px;border-radius:999px;background:rgba(14,58,95,.22);color:#CFE1FF;border:1px solid rgba(39,105,170,.35);font-weight:700;font-size:.9rem}
+    .title{font-size:clamp(28px, 4vw, 48px);line-height:1.2;margin:14px 0 8px;font-weight:800}
+    .subtitle{color:var(--muted);font-size:clamp(16px, 1.6vw, 18px)}
+    .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+    .btn{appearance:none;border:none;cursor:pointer;border-radius:14px;padding:12px 18px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#E6F1FF;box-shadow:0 10px 24px rgba(14,58,95,.35)}
+    .btn.ghost{background:transparent;color:var(--ink);border:1px solid rgba(255,255,255,.12)}
+    .btn:hover{transform:translateY(-1px)}
+    .hero-card{background:linear-gradient(180deg, rgba(14,58,95,.18), rgba(14,58,95,.08));border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .hero-card h3{margin:0 0 8px}
+    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+    .stat{background:rgba(255,255,255,.03);padding:14px;border-radius:14px;text-align:center}
+    .stat .kpi{font-size:24px;font-weight:800;color:#E6F1FF}
+    .stat .kpi small{font-weight:700;color:#99B7FF}
+    .stat span{display:block;color:var(--muted);font-size:.95rem}
+    section{padding:56px 0}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px}
+    .section-head h2{margin:0;font-size:clamp(22px, 3vw, 32px)}
+    .hint{color:var(--muted)}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media (max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:700px){.cards{grid-template-columns:1fr}}
+    .card{background:linear-gradient(180deg, rgba(14,58,95,.16), rgba(14,58,95,.06));
+      border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 8px}
+    .card p{margin:0;color:var(--muted)}
+    .gallery{display:grid;grid-template-columns:repeat(2, 1fr);gap:18px}
+    @media (max-width:900px){.gallery{grid-template-columns:1fr}}
+    .video{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+    .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    details{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px}
+    details + details{margin-top:10px}
+    summary{cursor:pointer;font-weight:800}
+    summary::-webkit-details-marker{display:none}
+    footer{padding:24px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted)}
+    footer a{color:#CFE1FF;text-decoration:none}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#home" class="brand" aria-label="العودة إلى الأعلى">
+          <span class="logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 2l7 3v6c0 5-3.5 9-7 11-3.5-2-7-6-7-11V5l7-3z" stroke="white" stroke-opacity=".9" stroke-width="1.4"/>
+              <path d="M9 12l2 2 4-4" stroke="white" stroke-opacity=".9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>درع الأمان المالي</span>
+        </a>
+        <div class="nav-links" role="navigation" aria-label="روابط القسم">
+          <a href="#about">عن الحملة</a>
+          <a href="#media">المحتوى المرئي</a>
+          <a href="#metrics">قياس الأثر</a>
+          <a href="#partners">شركاؤنا</a>
+          <a href="#faq">الأسئلة</a>
+          <a href="الحقوق-الفكرية.html">الحقوق الفكرية</a>
+        </div>
+        <label class="menu-btn" for="menu-toggle">القائمة ☰</label>
+        <input type="checkbox" id="menu-toggle" hidden>
+        <div class="drawer">
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header id="home" class="hero">
+    <div class="container">
+      <div class="grid">
+        <div>
+          <span class="badge">مبادرة تطوعية • طلابية</span>
+          <h1 class="title">حملة مدرسية لحماية الأسر والطلاب من الاحتيال المالي والاستهلاك غير الواعي</h1>
+          <p class="subtitle">مواد رقمية، ورش قصيرة، وأدوات عملية — بلا أرباح ولا مدفوعات. بإشراف المدرسة وبالشراكة المجتمعية.</p>
+          <div class="cta">
+            <a class="btn primary" href="#media">شاهد المحتوى المرئي</a>
+            <a class="btn ghost" href="الحقوق-الفكرية.html">الحقوق الفكرية</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-labelledby="quick-stats">
+          <h3 id="quick-stats">أهداف سريعة</h3>
+          <ul style="margin:0 0 6px 0; padding-inline-start:18px;color:var(--muted)">
+            <li>رفع الوعي بأساليب الاحتيال الشائعة.</li>
+            <li>تعزيز قرارات الشراء الواعية والادخار.</li>
+            <li>تمكين الأسر من وضع "ميثاق أمان مالي" منزلي.</li>
+          </ul>
+          <div class="hero-stats" aria-label="إحصاءات متوقعة">
+            <div class="stat"><div class="kpi">+100<small> مشارك</small></div><span>مستفيد في المجتمع</span></div>
+            <div class="stat"><div class="kpi">3<small> أسابيع</small></div><span>زمن التنفيذ</span></div>
+            <div class="stat"><div class="kpi">0<small> ربح</small></div><span>تطوّع خالص</span></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <h2>عن الحملة</h2>
+        <span class="hint">تعزيز الثقافة المالية والمسؤولية المجتمعية</span>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>الرؤية</h3>
+          <p>مدرسة ومجتمع أكثر وعيًا ماليًا، يتعرّف على المخاطر الرقمية والاستهلاكية ويتعامل معها بثقة.</p>
+        </article>
+        <article class="card">
+          <h3>الرسالة</h3>
+          <p>إنشاء محتوى عمليّ مجاني، تيسيره عبر ورش قصيرة وأدوات رقمية يسهل استخدامها للأسر والطلاب.</p>
+        </article>
+        <article class="card">
+          <h3>القيم</h3>
+          <p>التطوع، الإتقان، الشفافية، الشراكة المجتمعية، احترام الخصوصية والأمن.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- المحتوى المرئي -->
+  <section id="media">
+    <div class="container">
+      <div class="section-head">
+        <h2>المحتوى المرئي</h2>
+        <span class="hint">مختارات من الفيديوهات التوعوية</span>
+      </div>
+      <div class="gallery">
+        <div class="video">
+          <iframe src="https://www.youtube.com/embed/YLP9nlD1jPs" title="YouTube video 1" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="video">
+          <iframe src="https://www.youtube.com/embed/IROPO_ihVws" title="YouTube video 2" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="video">
+          <iframe src="https://www.youtube.com/embed/NfQYXFeDpFI" title="YouTube video 3" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="video">
+          <iframe src="https://www.youtube.com/embed/AXYW8fiekjY" title="YouTube video 4" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- قياس الأثر -->
+  <section id="metrics">
+    <div class="container">
+      <div class="section-head">
+        <h2>كيف نقيس الأثر؟</h2>
+        <span class="hint">مؤشرات بسيطة وواضحة</span>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>تحسّن المعرفة</h3>
+          <p>زيادة ≥ 30% بين اختبار «قبل» و«بعد» في مفاهيم الأمان المالي.</p>
+        </article>
+        <article class="card">
+          <h3>التفاعل المجتمعي</h3>
+          <p>عدد الحضور في الورش، والزيارات للموقع، ومعدّل مشاهدة الفيديوهات.</p>
+        </article>
+        <article class="card">
+          <h3>التزام الأسر</h3>
+          <p>عدد الميثاقات الأسرية الموقّعة وتلقّي التغذية الراجعة.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- شركاؤنا -->
+  <section id="partners">
+    <div class="container">
+      <div class="section-head">
+        <h2>شركاؤنا</h2>
+        <span class="hint">دون أي رعاية مالية أو أرباح</span>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>المدرسة</h3>
+          <p>التنسيق، الموافقات، توفير المساحات، والإشراف التربوي.</p>
+        </article>
+        <article class="card">
+          <h3>الأسَر</h3>
+          <p>حضور الورش، توقيع الميثاق الأسري، ونقل الخبرة داخل المنزل.</p>
+        </article>
+        <article class="card">
+          <h3>المجتمع المحلي</h3>
+          <p>نشر المواد، إتاحة منصات العرض، واستضافة الفعالية الختامية.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- الأسئلة الشائعة -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head">
+        <h2>الأسئلة الشائعة</h2>
+        <span class="hint">شفافية قبل كل شيء</span>
+      </div>
+      <details>
+        <summary>هل المشروع ربحي؟</summary>
+        <p class="hint">لا. المشروع تطوّعي بالكامل، بلا أي مبيعات أو تبرعات أو رسوم.</p>
+      </details>
+      <details>
+        <summary>كيف نضمن خصوصية المشاركين؟</summary>
+        <p class="hint">لا نجمع بيانات حسّاسة، ونستخدم أمثلة مموّهة دون روابط فعلية، مع موافقات رسمية للصور.</p>
+      </details>
+      <details>
+        <summary>هل المواد متاحة للمشاركة؟</summary>
+        <p class="hint">نعم — جميع المواد تُنشر بصيغ مفتوحة ومجانية للاستخدام المجتمعي.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <span>© <span id="year"></span> درع الأمان المالي — مبادرة طلابية تطوعية - ثانوية الظبية</span>
+      <span><a href="الحقوق-الفكرية.html">الحقوق الفكرية</a></span>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- داخل <head> تأكّد أن وسم العرض موجود -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- إذا وضعتها كملف خارجي -->
+<link rel="stylesheet" href="responsive.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</body>
+</html>
